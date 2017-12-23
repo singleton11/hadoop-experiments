@@ -9,4 +9,8 @@ RUN ln -sf /usr/bin/python3 /usr/bin/python
 
 WORKDIR /data
 
-CMD ["bash", "-c", "yarn jar $HADOOP_STREAMING_JAR -mapper mapper.py -reducer reducer.py -input data.txt -output output"]
+CMD ["bash", "-c", "yarn jar $HADOOP_STREAMING_JAR -files stop_words.txt,mapper.py,reducer.py \
+                                                   -mapper mapper.py \
+                                                   -reducer reducer.py \
+                                                   -input data.txt \
+                                                   -output output"]
