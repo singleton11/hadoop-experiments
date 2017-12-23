@@ -18,5 +18,12 @@ for line in sys.stdin:
     article_text: str = re.sub('^\W+|\W+$', '', text)
     words: List[str] = re.split('\W*\s+\W*', text)
 
-    for word in words:
-        print(word, 1, sep='\t')
+    with open('stop_words.txt') as f:
+        stop_words = f.read().split('\n')
+        counter = 0
+        for index, word in enumerate(words):
+            if word in stop_words:
+                counter += 1
+                print(f'reporter:counter:stop_words,stop_words,{counter}', file=sys.stderr)
+            print(f'reporter:counter:stop_words,words_total,{index + 1}', file=sys.stderr)
+            print(word, 1, sep='\t')
